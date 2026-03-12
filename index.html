@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+<meta charset="UTF-8">
+<title>StudyFlow - Protótipo IHC</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#e5e7eb;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+/* simulação de celular */
+
+.phone{
+width:360px;
+height:720px;
+background:white;
+border-radius:28px;
+box-shadow:0 20px 40px rgba(0,0,0,0.25);
+overflow:hidden;
+position:relative;
+}
+
+/* telas */
+
+.screen{
+display:none;
+padding:24px;
+height:100%;
+}
+
+.screen.active{
+display:block;
+}
+
+/* títulos */
+
+.header{
+font-size:22px;
+font-weight:bold;
+color:#111827;
+margin-bottom:10px;
+}
+
+.subtitle{
+font-size:14px;
+color:#6b7280;
+margin-bottom:20px;
+}
+
+/* formulário */
+
+label{
+font-size:13px;
+color:#374151;
+}
+
+input{
+width:100%;
+padding:11px;
+margin-top:6px;
+margin-bottom:15px;
+border-radius:6px;
+border:1px solid #d1d5db;
+font-size:14px;
+}
+
+/* botões */
+
+button{
+width:100%;
+padding:12px;
+border:none;
+border-radius:7px;
+background:#2563eb;
+color:white;
+font-size:15px;
+cursor:pointer;
+transition:0.2s;
+}
+
+button:hover{
+background:#1d4ed8;
+}
+
+button.secondary{
+background:#e5e7eb;
+color:#111827;
+margin-top:10px;
+}
+
+/* tarefas */
+
+.task{
+background:#f9fafb;
+border:1px solid #e5e7eb;
+padding:12px;
+border-radius:8px;
+margin-bottom:10px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:14px;
+}
+
+.empty{
+color:#9ca3af;
+font-size:14px;
+text-align:center;
+margin-top:40px;
+}
+
+/* botão inferior */
+
+.add-area{
+position:absolute;
+bottom:25px;
+left:24px;
+right:24px;
+}
+
+/* mensagem */
+
+.message{
+background:#dcfce7;
+color:#166534;
+padding:10px;
+border-radius:6px;
+font-size:13px;
+margin-bottom:10px;
+display:none;
+}
+
+/* rodapé */
+
+.footer{
+position:absolute;
+bottom:10px;
+left:0;
+right:0;
+text-align:center;
+font-size:12px;
+color:#9ca3af;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="phone">
+
+<!-- LOGIN -->
+
+<div class="screen active" id="login">
+
+<div class="header">StudyFlow</div>
+
+<div class="subtitle">
+Aplicativo para organizar tarefas de estudo
+</div>
+
+<label>Email</label>
+<input type="text" placeholder="seuemail@email.com">
+
+<label>Senha</label>
+<input type="password" placeholder="••••••••">
+
+<button onclick="go('home')">Entrar</button>
+
+<div class="footer">
+Protótipo acadêmico - IHC
+</div>
+
+</div>
+
+
+
+<!-- LISTA -->
+
+<div class="screen" id="home">
+
+<div class="header">Minhas tarefas</div>
+
+<div class="message" id="msg">
+Tarefa adicionada com sucesso
+</div>
+
+<div id="taskList">
+
+<div class="task">
+<span>Estudar Interação Humano Computador</span>
+<span>✔</span>
+</div>
+
+<div class="task">
+<span>Fazer atividade de programação</span>
+<span>✔</span>
+</div>
+
+</div>
+
+<div class="add-area">
+<button onclick="go('nova')">+ Nova tarefa</button>
+</div>
+
+</div>
+
+
+
+<!-- NOVA TAREFA -->
+
+<div class="screen" id="nova">
+
+<div class="header">Nova tarefa</div>
+
+<label>Nome da tarefa</label>
+<input id="taskName" type="text" placeholder="Ex: estudar para prova">
+
+<label>Descrição</label>
+<input id="taskDesc" type="text" placeholder="detalhes da atividade">
+
+<label>Data</label>
+<input id="taskDate" type="date">
+
+<button onclick="addTask()">Salvar tarefa</button>
+
+<button class="secondary" onclick="go('home')">Cancelar</button>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+/* navegação entre telas */
+
+function go(tela){
+
+let screens=document.querySelectorAll(".screen")
+
+screens.forEach(function(s){
+s.classList.remove("active")
+})
+
+document.getElementById(tela).classList.add("active")
+
+}
+
+
+
+/* adicionar tarefa */
+
+function addTask(){
+
+let name=document.getElementById("taskName").value
+
+if(name===""){
+alert("Digite o nome da tarefa")
+return
+}
+
+let taskList=document.getElementById("taskList")
+
+let div=document.createElement("div")
+div.className="task"
+
+div.innerHTML="<span>"+name+"</span><span>✔</span>"
+
+taskList.appendChild(div)
+
+/* limpar campos */
+
+document.getElementById("taskName").value=""
+document.getElementById("taskDesc").value=""
+document.getElementById("taskDate").value=""
+
+go("home")
+
+/* mensagem de confirmação */
+
+let msg=document.getElementById("msg")
+msg.style.display="block"
+
+setTimeout(function(){
+msg.style.display="none"
+},2000)
+
+}
+
+</script>
+
+</body>
+
+</html>
