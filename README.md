@@ -39,9 +39,14 @@ Demonstrar conceitos básicos de prototipação de interface e usabilidade, apli
 
 ## Autor
 
-IFSULDEMINAS  
+IFSULDEMINAS 
+
 Curso Técnico em Desenvolvimento de Sistemas EAD
+
 Disciplina: Interação Humano-Computador
+
 Atividade de Prototipação
+
 Aluno: Wanderson Kennedy dos Reis Abreu
+
 Matrícula: 202514410149
